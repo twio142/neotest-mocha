@@ -96,7 +96,7 @@ describe("build_spec", function()
       "--full-trace",
       "--reporter=json",
       "--reporter-options=output=tempname.json",
-      "--grep='.*'",
+      "--grep=.*",
       "./test/specs/basic.test.js",
     }
     local expected_cwd = nil
@@ -133,7 +133,7 @@ describe("build_spec", function()
       "--full-trace",
       "--reporter=json",
       "--reporter-options=output=tempname.json",
-      "--grep='^describe suite'",
+      "--grep=^describe suite",
       "./test/specs/basic.test.js",
     }
     local expected_cwd = nil
@@ -170,7 +170,7 @@ describe("build_spec", function()
       "--full-trace",
       "--reporter=json",
       "--reporter-options=output=tempname.json",
-      "--grep='^describe\\-suite should pass$'",
+      "--grep=^describe\\-suite should pass$",
       "./test/specs/basic.test.js",
     }
     local expected_cwd = nil
@@ -218,7 +218,7 @@ describe("build_spec", function()
       "--bail",
       "--dry-run",
       "--reporter=spec",
-      "--grep='^describe suite should pass$'",
+      "--grep=^describe suite should pass$",
       "./test/specs/basic.test.js",
     }
     local expected_cwd = nil
@@ -266,7 +266,7 @@ describe("build_spec", function()
       "--bail",
       "--dry-run",
       "--reporter=spec",
-      "--fgrep='describe suite should pass'",
+      "--fgrep=describe suite should pass",
       "./test/specs/basic.test.js",
     }
     local expected_cwd = nil
