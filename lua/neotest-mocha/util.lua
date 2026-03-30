@@ -64,7 +64,7 @@ M.path = (function()
   end
 
   local function path_join(...)
-    return table.concat(vim.tbl_flatten { ... }, "/")
+    return table.concat({ ... }, "/")
   end
 
   -- Traverse the path calling cb along the way.
@@ -155,7 +155,7 @@ function M.search_ancestors(startpath, func)
 end
 
 function M.root_pattern(...)
-  local patterns = vim.tbl_flatten { ... }
+  local patterns = { ... }
   local function matcher(path)
     for _, pattern in ipairs(patterns) do
       for _, p in ipairs(vim.fn.glob(M.path.join(path, pattern), true, true)) do
@@ -398,16 +398,11 @@ function M.has_package_dependency(path, packageName)
     return false
   end
 
-  local ok, packageJsonContent = pcall(lib.files.read, fullPath)
+  local packageJsonContent = lib.files.read(fullPath)
 
-  if not ok then
-    print "cannot read package.json"
-    return false
-  end
+  local ok, parsedPackageJson = pcall(vim.json.decode, packageJsonContent)
 
-  local parsedPackageJson = vim.json.decode(packageJsonContent)
-
-  if not parsedPackageJson then
+  if not ok or not parsedPackageJson then
     return false
   end
 
